@@ -15,7 +15,6 @@ public class TimeUtils {
 
     public static final SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final SimpleDateFormat DATE_FORMAT_DATE = new SimpleDateFormat("yyyy-MM-dd");
-    // 日期格式为 2016-02-03 17:04:58
     public static final String PATTERN_DATE = "yyyy年MM月dd日";
     public static final String PATTERN_TIME = "HH:mm:ss";
     public static final String PATTERN_SPLIT = " ";

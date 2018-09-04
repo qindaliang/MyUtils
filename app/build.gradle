@@ -37,6 +37,11 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.2.1"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
+// If you want to bind to Android-specific lifecycles
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.2'
+// If you want pre-written Activities and Fragments you can subclass as providers
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     // Optional, if you use support library fragments:

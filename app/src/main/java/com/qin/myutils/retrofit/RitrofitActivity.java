@@ -61,7 +61,7 @@ public class RitrofitActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<RetrofitEntity> call, Response<RetrofitEntity> response) {
                         Log.i("msg","onResponse\n");
-                        Log.i("msg",response.body().toString());
+                        Log.i("msg",response.body().getData().toString());
                     }
 
                     @Override
@@ -83,6 +83,7 @@ public class RitrofitActivity extends AppCompatActivity {
                     @Override
                     public void onNext(RetrofitEntity r) {
                         Log.i("msg","onNext\n");
+                        Log.i("msg", r.getData().toString()+"onNext\n");
                     }
 
                     @Override

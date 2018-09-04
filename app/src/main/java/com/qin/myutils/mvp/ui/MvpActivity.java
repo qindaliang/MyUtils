@@ -34,12 +34,12 @@ public class MvpActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void showLoginDialog() {
-        ToastUtils.showToast(this,"showLoginDialog" );
+        ToastUtils.show(this,"showLoginDialog" );
     }
 
     @Override
     public void hideLoginDialog() {
-        ToastUtils.showToast(this,"hideLoginDialog" );
+        ToastUtils.show(this,"hideLoginDialog" );
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MvpActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void loginFailure() {
-        ToastUtils.showToast(this,"loginFailure" );
+        ToastUtils.show(this,"loginFailure" );
     }
 
     @OnClick(R.id.btn)
