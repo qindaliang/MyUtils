@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.qin.myutils.R;
 
-
 /**
- * Created by zhpan on 2017/4/13.
+ *
  */
 
 public class CustomProgressDialog extends Dialog {
