@@ -3,12 +3,12 @@ package com.qin.myutils.retrofit.common;
 /**
  *
  */
-public class BasicResponse<T> {
+public class BaseResponse<T> {
 
     private int code;
     private String message;
     private T results;
-    private boolean error;
+  //  private boolean error;
 
     public T getResults() {
         return results;
@@ -18,13 +18,13 @@ public class BasicResponse<T> {
         this.results = results;
     }
 
-    public boolean isError() {
-        return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
-    }
+//    public boolean isError() {
+//        return error;
+//    }
+//
+//    public void setError(boolean error) {
+//        this.error = error;
+//    }
 
     public int getCode() {
         return code;
