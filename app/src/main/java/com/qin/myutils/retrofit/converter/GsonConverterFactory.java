@@ -19,12 +19,11 @@ package com.qin.myutils.retrofit.converter;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
-import com.qin.myutils.retrofit.common.BasicResponse;
+import com.qin.myutils.retrofit.common.BaseResponse;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -77,7 +76,7 @@ public final class GsonConverterFactory extends Converter.Factory {
 
             @Override
             public Type getRawType() {
-                return BasicResponse.class;
+                return BaseResponse.class;
             }
         };
         TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(newType));

@@ -47,11 +47,11 @@
         </activity>
         <activity android:name=".mvp_dagger.ui.LoginSuccessActivity" />
         <activity android:name=".retrofit.RitrofitActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".rxdemo.RxDemoActivity">
             <!--<intent-filter>-->
@@ -59,6 +59,13 @@
 
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".retrofit.upload.UploadActivity">
+            <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

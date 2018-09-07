@@ -1,11 +1,11 @@
 package com.qin.myutils.retrofit.request;
 
-import com.qin.myutils.retrofit.common.BasicResponse;
+import com.qin.myutils.retrofit.common.BaseResponse;
 
 /**
  * Description:
  */
-public class LoginResponse extends BasicResponse {
+public class LoginResponse extends BaseResponse {
     private String token;
     private String refresh_token;
     private String expired;

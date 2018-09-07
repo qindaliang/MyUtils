@@ -17,7 +17,7 @@
 package com.qin.myutils.retrofit.converter;
 
 import com.google.gson.TypeAdapter;
-import com.qin.myutils.retrofit.common.BasicResponse;
+import com.qin.myutils.retrofit.common.BaseResponse;
 import com.qin.myutils.retrofit.exception.NoDataExceptionException;
 import com.qin.myutils.retrofit.exception.ServerResponseException;
 
@@ -37,18 +37,17 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, Obje
     @Override
     public Object convert(ResponseBody value) throws IOException {
         try {
-            BasicResponse response = (BasicResponse) adapter.fromJson(value.charStream());
-            if (response.isError()) {
+            BaseResponse response = (BaseResponse) adapter.fromJson(value.charStream());
+            if (response.getCode() != 0) {
                 // 特定 API 的错误，在相应的 DefaultObserver 的 onError 的方法中进行处理
                 throw new ServerResponseException(response.getCode(), response.getMessage());
-            } else if (!response.isError()) {
-                if(response.getResults()!=null)
-                return response.getResults();
+            } else {
+                if (response.getResults() != null)
+                    return response.getResults();
                 else throw new NoDataExceptionException();
             }
         } finally {
             value.close();
         }
-        return null;
     }
 }

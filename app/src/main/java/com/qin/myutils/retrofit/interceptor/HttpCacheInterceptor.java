@@ -31,16 +31,32 @@ public class HttpCacheInterceptor implements Interceptor {
             Response originalResponse = chain.proceed(request);
             if (NetworkUtils.isConnected()) {
                 //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
-                String cacheControl = request.cacheControl().toString();
-
+//                String cacheControl = request.cacheControl().toString();
+//                if (!cacheControl.equals(""))
+//                return originalResponse.newBuilder()
+//                        .removeHeader("Pragma")
+//                        .removeHeader("Cache-Control")
+//                        .header("Cache-Control", cacheControl)
+//                        .build();
+                int maxAge = 60; //有网失效一分钟
                 return originalResponse.newBuilder()
-                        .header("Cache-Control", cacheControl)
                         .removeHeader("Pragma")
+                        .removeHeader("Cache-Control")
+                        .header("Cache-Control", "public, max-age=" + maxAge)
                         .build();
+
             } else {
+//                return originalResponse.newBuilder()
+//                        .removeHeader("Pragma")
+//                        .removeHeader("Cache-Control")
+//                        .header("Cache-Control", "public, only-if-cached, max-stale=2419200")
+//                        .build();
+
+                int maxStale = 60 * 60 * 24; // 没网失效24小时
                 return originalResponse.newBuilder()
-                        .header("Cache-Control", "public, only-if-cached, max-stale=2419200")
                         .removeHeader("Pragma")
+                        .removeHeader("Cache-Control")
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                         .build();
             }
         }

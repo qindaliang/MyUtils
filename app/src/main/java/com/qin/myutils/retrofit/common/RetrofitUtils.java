@@ -5,19 +5,33 @@ import android.graphics.BitmapFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.qin.myutils.retrofit.cookie.CookieManger;
+import com.qin.myutils.retrofit.exception.RetryWhenNetworkException;
 import com.qin.myutils.retrofit.interceptor.HttpCacheInterceptor;
 import com.qin.myutils.retrofit.interceptor.HttpHeaderInterceptor;
 import com.qin.myutils.retrofit.interceptor.LoggingInterceptor;
+import com.qin.myutils.retrofit.upload.BaseApi;
+import com.qin.myutils.retrofit.upload.HttpOnNextListener;
+import com.qin.myutils.retrofit.upload.ProgressSubscriber;
 import com.qin.myutils.utils.ContextUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
+import okhttp3.ConnectionPool;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -49,6 +63,9 @@ public class RetrofitUtils {
                 // .sslSocketFactory(SslContextFactory.getSSLSocketFactoryForTwoWay())
                 // https认证 如果要使用https且为自定义证书 可以去掉这两行注释，并自行配制证书。
                 // .hostnameVerifier(new SafeHostnameVerifier())
+               // .connectionPool(new ConnectionPool(8, 15, TimeUnit.SECONDS))
+                // 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为10s
+               // .cookieJar(new CookieManger(ContextUtils.getContext()))
                 .cache(cache);
     }
 
@@ -60,6 +77,36 @@ public class RetrofitUtils {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(baseUrl);
+
+
+
+    }
+
+    public static void doUpload(BaseApi basePar,String baseUrl){
+        /*rx处理*/
+        ProgressSubscriber subscriber = new ProgressSubscriber(basePar);
+        Observable observable = basePar.getObservable(getRetrofitBuilder(baseUrl).build())
+                /*失败后的retry配置*/
+                .retryWhen(new RetryWhenNetworkException(basePar.getRetryCount(),
+                        basePar.getRetryDelay(), basePar.getRetryIncreaseDelay()))
+                /*生命周期管理*/
+//                .compose(basePar.getRxAppCompatActivity().bindToLifecycle())
+                .compose(basePar.getRxAppCompatActivity().bindUntilEvent(ActivityEvent.PAUSE))
+                /*http请求线程*/
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                /*回调线程*/
+                .observeOn(AndroidSchedulers.mainThread())
+                /*结果判断*/
+                .map((Function) basePar);
+
+        /*链接式对象返回*/
+        SoftReference<HttpOnNextListener> httpOnNextListener = basePar.getListener();
+        if (httpOnNextListener != null && httpOnNextListener.get() != null) {
+            httpOnNextListener.get().onNext(observable);
+        }
+        /*数据回调*/
+        observable.subscribe((Observer) subscriber);
     }
 
 //    public static OkHttpClient.Builder getDefaultOkHttpClientBuilder() {

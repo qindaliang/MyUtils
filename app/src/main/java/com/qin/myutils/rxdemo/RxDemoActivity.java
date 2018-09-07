@@ -160,4 +160,5 @@ public class RxDemoActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }

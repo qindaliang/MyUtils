@@ -6,6 +6,7 @@ import com.qin.myutils.dagger.AppHolder.AppHolder;
 import com.qin.myutils.dagger.component.AppComponent;
 import com.qin.myutils.dagger.component.DaggerAppComponent;
 import com.qin.myutils.dagger.module.AppModule;
+import com.qin.myutils.utils.ContextUtils;
 
 public class MyApplication extends Application {
 
@@ -15,6 +16,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         getAppComponent().inject(this);
+        ContextUtils.init(this);
     }
 
     public AppComponent getAppComponent() {
