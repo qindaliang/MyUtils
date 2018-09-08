@@ -2,7 +2,7 @@ package com.qin.myutils.dagger.component;
 
 import android.content.Context;
 
-import com.qin.myutils.dagger.MyApplication;
+import com.qin.myutils.MyApplication;
 import com.qin.myutils.dagger.module.AppModule;
 import com.qin.myutils.dagger.scopes.ApplicationContext;
 

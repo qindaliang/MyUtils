@@ -1,9 +1,8 @@
 package com.qin.myutils.dagger.module;
 
-import android.app.Application;
 import android.content.Context;
 
-import com.qin.myutils.dagger.MyApplication;
+import com.qin.myutils.MyApplication;
 import com.qin.myutils.dagger.scopes.ApplicationContext;
 
 import javax.inject.Singleton;

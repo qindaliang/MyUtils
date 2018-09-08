@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -20,6 +20,12 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+}
+
+greendao {
+    schemaVersion 1  //版本
+    daoPackage 'com.qin.myutils.greendao.data' // 一般为app包名+生成文件的文件夹名
+    targetGenDir 'src/main/java' //生成文件路径
 }
 
 dependencies {
@@ -54,6 +60,5 @@ dependencies {
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
-
     implementation 'com.daimajia.numberprogressbar:library:1.2@aar'
 }

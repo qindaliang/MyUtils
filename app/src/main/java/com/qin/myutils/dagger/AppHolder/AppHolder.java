@@ -1,6 +1,5 @@
 package com.qin.myutils.dagger.AppHolder;
 
-import com.qin.myutils.dagger.MyApplication;
 import com.qin.myutils.dagger.component.AppComponent;
 
 public class AppHolder {

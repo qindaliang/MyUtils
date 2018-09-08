@@ -1,7 +1,7 @@
 package com.qin.myutils.mvp.bean;
 
 public class User {
-    private String userName;
+    public String userName;
 
     public String getPassWord() {
         return passWord;
@@ -19,5 +19,5 @@ public class User {
         this.userName = userName;
     }
 
-    private String passWord;
+    public String passWord;
 }
